@@ -1,49 +1,62 @@
-# simplified-dnd-monte-carlo-combat-simulator
-
 # D&D Monte Carlo Combat Simulator
 
-A Python-based Monte Carlo simulation of Dungeons & Dragons rules
-1v1 combat.
+A Python-based Monte Carlo simulation of Dungeons & Dragons-style 1v1 combat, built to explore combat outcomes and the effect of simulation size on estimate stability.
 
 ## Project Overview
 
-This project simulates repeated combat encounters using randomized
-dice rolls and compares results across different simulation sizes.
+A single D&D combat encounter can be heavily influenced by random dice rolls. This project simulates the same encounter thousands of times to estimate combat outcomes across many possible rolls.
 
-The goal was to explore how increasing the number of Monte Carlo trials
-affects the stability of estimated combat outcomes.
+The test scenario pits **Regnar Torsten**, a friend's D&D cleric, against a **Polar Bear**. Regnar normally has access to spells, but this scenario assumes he has exhausted his spell slots and must rely entirely on his medium armor and greatsword.
 
-## Features
+The simulator models:
 
-- D20 attack and initiative rolls
-- Armor Class and attack bonuses
-- Configurable damage dice
-- Critical hits
-- Hit point tracking
-- Initiative order
-- Fight-level statistics
-- Monte Carlo simulation
-- Pandas-based result analysis
-- Simulation convergence analysis
+* Initiative
+* Armor Class (AC)
+* Attack rolls
+* Critical hits
+* Damage rolls
+* Hit points
+* Combat rounds
+
+## Monte Carlo Stability
+
+Before using the simulator for further analysis, I tested how the number of simulated fights affects the stability of the estimated win rate.
+
+Simulation sizes of **100, 1,000, 10,000, and 100,000 fights** were first compared individually.
+
+Because a single run can itself be affected by random variation, each simulation size was then repeated **10 independent times**.
+
+The repeated tests showed that smaller simulations produced substantially more variation in estimated win rate, while larger simulations produced increasingly consistent estimates. At **100,000 fights per run**, estimates clustered tightly around approximately **27–28%** for Regnar.
+
+Based on this stability, 100,000 simulations per scenario was selected as a baseline for future analysis.
 
 ## Technologies
 
-- Python
-- Pandas
-- Matplotlib
-- Jupyter Notebook
+* Python
+* Pandas
+* Matplotlib
+* Jupyter Notebook
 
-## Key Result
+## Project Structure
 
-The estimated win rate varied substantially with only 100 simulated
-fights but became increasingly stable as the simulation count increased
-to 1,000, 10,000, and 100,000 trials.
+The notebook progresses through:
 
-## Possible Future Improvements
+1. Character configuration
+2. Combat mechanics
+3. Single-fight simulation
+4. Monte Carlo simulation
+5. Simulation-size comparison
+6. Repeated-run stability testing
+7. Visualization and interpretation
 
-- Combat-stat sensitivity analysis
-- Advantage/disadvantage
-- Multiple attacks
-- Class features
-- Spellcasting
-- Additional visualization and statistical analysis
+## Future Work
+
+The simulator can be extended into a sensitivity analysis to investigate questions such as:
+
+* How do AC and HP affect survivability, combat duration, and win probability?
+* How much does attack bonus affect hit rate and win probability?
+* How strongly does initiative influence combat outcomes?
+* With the same attack and damage bonuses, does damage distribution (such as 2d6 vs. 1d12) meaningfully affect average damage or win probability?
+* How strongly are critical hits associated with winning an encounter?
+
+Additional D&D mechanics such as advantage/disadvantage, multiple attacks, spells, class abilities, and conditi
